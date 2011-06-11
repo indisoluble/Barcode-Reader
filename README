@@ -1,0 +1,8 @@
+h1. Barcode Reader
+
+h2. Introduction
+bq. This application is born with the porpouse to test the "Ice library":http://www.zeroc.com/icetouch/index.html.
+bq. Combined with "Zbar library":http://zbar.sourceforge.net/, I pretend to create an application usefull for retail.
+
+h2. License
+bq. It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file

@@ -2,8 +2,7 @@ h1. Barcode Reader
 
 h2. Introduction
 
-bq. This application is born with the porpouse to test the "Ice library":http://www.zeroc.com/icetouch/index.html.
-bq. Combined with "Zbar library":http://zbar.sourceforge.net/, I pretend to create an application usefull for retail.
+bq. This application is born with the porpouse to test the "Ice library":http://www.zeroc.com/icetouch/index.html. Combined with "Zbar library":http://zbar.sourceforge.net/, I pretend to create an application usefull for retail.
 
 h2. License
 

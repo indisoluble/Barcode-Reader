@@ -7,13 +7,22 @@
 //
 
 #import "CaptureBarcodeViewController.h"
+#import "CaptureModel.h"
+
+
+
+#define CAPTUREBARCODE_IMAGESIZE 48
 
 
 
 @interface CaptureBarcodeViewController ()
 
+#pragma mark - Properties
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 #pragma mark - Methods
 - (IBAction) scanButtonTapped;
+- (UIImage *)resize:(UIImage *)image;
 
 @end
 
@@ -23,6 +32,8 @@
 
 
 #pragma mark - Synthesized methods
+@synthesize managedObjectContext = __managedObjectContext;
+
 @synthesize resultImage = __resultImage;
 @synthesize resultText = __resultText;
 
@@ -30,10 +41,20 @@
 #pragma mark - Init object
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil managedObjectContext:nil];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+ managedObjectContext:(NSManagedObjectContext *)moc
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         self.title = @"Capture";
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:self.title
+                                                         image:[UIImage imageNamed:@"86-camera.png"]
+                                                           tag:0] autorelease];
+        self.managedObjectContext = moc;
     }
     return self;
 }
@@ -44,6 +65,8 @@
 {
     self.resultImage = nil;
     self.resultText = nil;
+    
+    self.managedObjectContext = nil;
     
     [super dealloc];
 }
@@ -81,30 +104,48 @@
 #pragma mark - UIImagePickerControllerDelegate methods
 - (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
 {
-    // ADD: get the decode results
+    // Get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
-    for(symbol in results)
-    {
-        // EXAMPLE: just grab the first barcode
+    for(symbol in results) {
+        // Just grab the first barcode
         break;
     }
     
-    // EXAMPLE: do something useful with the barcode data
+    // Show the barcode data and image
     self.resultText.text = symbol.data;
-    
-    // EXAMPLE: do something useful with the barcode image
     self.resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
     
-    // ADD: dismiss the controller (NB dismiss from the *reader*!)
+    // Save data
+    if (self.managedObjectContext) {
+        
+        NSLog(@"Save capture to database");
+
+        CaptureModel *capture = (CaptureModel *)[NSEntityDescription insertNewObjectForEntityForName:@"CaptureModel"
+                                                                              inManagedObjectContext:self.managedObjectContext];
+        capture.barcode = self.resultText.text;
+        capture.image = UIImageJPEGRepresentation([self resize:self.resultImage.image], 1.0);
+        
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error saving data downloaded from server <%@>", error);
+        }
+        
+    }
+    
+    // Dismiss the controller (NB dismiss from the *reader*!)
     [reader dismissModalViewControllerAnimated: YES];
+    
+    NSLog(@"End scanning");
 }
 
 
 #pragma mark - Private methods
 - (IBAction) scanButtonTapped
 {
-    // ADD: present a barcode reader that scans from the camera feed
+    NSLog(@"Start scanning ...");
+    
+    // Present a barcode reader that scans from the camera feed
     ZBarReaderViewController *reader = [[[ZBarReaderViewController alloc] init] autorelease];
     reader.readerDelegate = self;
     
@@ -113,6 +154,28 @@
     
     // Present the controller
     [self presentModalViewController:reader animated:YES];
+}
+
+- (UIImage *)resize:(UIImage *)image
+{
+    UIImage *imageResized = nil;
+    
+    if (image.size.width != CAPTUREBARCODE_IMAGESIZE &&
+        image.size.height != CAPTUREBARCODE_IMAGESIZE)
+    {
+        CGSize itemSize = CGSizeMake(CAPTUREBARCODE_IMAGESIZE, CAPTUREBARCODE_IMAGESIZE);
+        UIGraphicsBeginImageContext(itemSize);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [image drawInRect:imageRect];
+        imageResized = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    else
+    {
+        imageResized = image;
+    }
+
+    return imageResized;
 }
 
 

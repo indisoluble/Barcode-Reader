@@ -8,12 +8,17 @@
 
 #import "BarcodeReaderClientAppDelegate.h"
 #import "CaptureBarcodeViewController.h"
+#import "ListCapturesViewController.h"
 
 
 
 @interface BarcodeReaderClientAppDelegate ()
 
 #pragma mark - Properties
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic, retain) UITabBarController *tabBarController;
 
 @end
@@ -38,12 +43,17 @@
     // Tab to capture barcode
     UINavigationController *captureBarcodesNavController = [[[UINavigationController alloc] init] autorelease];
     CaptureBarcodeViewController *captureBarcodeViewController =
-        [[[CaptureBarcodeViewController alloc] initWithNibName:@"CaptureBarcodeViewController" bundle:nil] autorelease];
+        [[[CaptureBarcodeViewController alloc] initWithNibName:@"CaptureBarcodeViewController"
+                                                        bundle:nil
+                                          managedObjectContext:self.managedObjectContext] autorelease];
     [captureBarcodesNavController pushViewController:captureBarcodeViewController animated:NO];
     
     // Tab to list barcodes
     UINavigationController *listBarcodesNavController = [[[UINavigationController alloc] init] autorelease];
-    listBarcodesNavController.title = @"List";
+    ListCapturesViewController *listCapturesViewController =
+        [[[ListCapturesViewController alloc] initWithStyle:UITableViewStylePlain
+                                   andManagedObjectContext:self.managedObjectContext] autorelease];
+    [listBarcodesNavController pushViewController:listCapturesViewController animated:NO];
     
     // Adds tabs to tabBarController
     NSArray *viewControllers = [NSArray arrayWithObjects: captureBarcodesNavController, listBarcodesNavController, nil];
@@ -101,8 +111,87 @@
 {
     self.tabBarController = nil;
     
+    [__managedObjectContext release];
+    [__persistentStoreCoordinator release];
+    [__managedObjectModel release];
+    
     [_window release];
     [super dealloc];
 }
+
+
+#pragma mark - Private methods
+#pragma mark - Application's documents directory
+/**
+ Returns the path to the application's documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory
+{
+	
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+
+#pragma mark - Core Data stack
+/**
+ Returns the managed object model for the application.
+ If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
+ */
+- (NSManagedObjectModel *)managedObjectModel
+{	
+    if (__managedObjectModel != nil) {
+        return __managedObjectModel;
+    }
+    __managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
+    return __managedObjectModel;
+}
+
+/**
+ Returns the persistent store coordinator for the application.
+ If the coordinator doesn't already exist, it is created and the application's store added to it.
+ */
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{	
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+	
+    NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory]
+                                              stringByAppendingPathComponent: @"BarcodeReaderClient-Model.sqlite"]];
+	
+	NSError *error;
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                    configuration:nil
+                                                              URL:storeUrl
+                                                          options:nil
+                                                            error:&error])
+    {
+        NSLog(@"Error while creating persistent store coordinator. No access to database");
+    }    
+	
+    return __persistentStoreCoordinator;
+}
+
+/**
+ Returns the managed object context for the application.
+ If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+ */
+- (NSManagedObjectContext *) managedObjectContext
+{	
+    if (__managedObjectContext != nil) {
+        return __managedObjectContext;
+    }
+	
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [__managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    return __managedObjectContext;
+}
+
 
 @end

@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 
 
 @interface BarcodeReaderClientAppDelegate : NSObject <UIApplicationDelegate> {
+    
+    NSPersistentStoreCoordinator *__persistentStoreCoordinator;
+    NSManagedObjectModel *__managedObjectModel;
+    NSManagedObjectContext *__managedObjectContext;
+
     UITabBarController *__tabBarController;
 }
 

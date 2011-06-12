@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FFD1059B13A541D70081C8F8 /* 195-barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1059A13A541D70081C8F8 /* 195-barcode.png */; };
+		FFD1059D13A542380081C8F8 /* 86-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1059C13A542380081C8F8 /* 86-camera.png */; };
+		FFD105A313A544B00081C8F8 /* AmebaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD105A213A544B00081C8F8 /* AmebaLogo.png */; };
 		FFFC0CF513A4E0D00018B904 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF413A4E0D00018B904 /* UIKit.framework */; };
 		FFFC0CF713A4E0D00018B904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF613A4E0D00018B904 /* Foundation.framework */; };
 		FFFC0CF913A4E0D00018B904 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF813A4E0D00018B904 /* CoreGraphics.framework */; };
@@ -26,9 +29,16 @@
 		FFFC0D4213A4E49F0018B904 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D4113A4E49F0018B904 /* libiconv.dylib */; };
 		FFFC0D4613A4EB500018B904 /* CaptureBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */; };
 		FFFC0D4713A4EB500018B904 /* CaptureBarcodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */; };
+		FFFC0D4D13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D4B13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodeld */; };
+		FFFC0D5013A502170018B904 /* CaptureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D4F13A502170018B904 /* CaptureModel.m */; };
+		FFFC0D5213A506770018B904 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D5113A506770018B904 /* CoreData.framework */; };
+		FFFC0D6513A516A50018B904 /* ListCapturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D6413A516A40018B904 /* ListCapturesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FFD1059A13A541D70081C8F8 /* 195-barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "195-barcode.png"; sourceTree = "<group>"; };
+		FFD1059C13A542380081C8F8 /* 86-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "86-camera.png"; sourceTree = "<group>"; };
+		FFD105A213A544B00081C8F8 /* AmebaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AmebaLogo.png; path = ../AmebaLogo.png; sourceTree = "<group>"; };
 		FFFC0CF013A4E0D00018B904 /* BarcodeReaderClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarcodeReaderClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFFC0CF413A4E0D00018B904 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FFFC0CF613A4E0D00018B904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +82,12 @@
 		FFFC0D4313A4EB4F0018B904 /* CaptureBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureBarcodeViewController.h; sourceTree = "<group>"; };
 		FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureBarcodeViewController.m; sourceTree = "<group>"; };
 		FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptureBarcodeViewController.xib; sourceTree = "<group>"; };
+		FFFC0D4C13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BarcodeReaderClient-Model.xcdatamodel"; sourceTree = "<group>"; };
+		FFFC0D4E13A502170018B904 /* CaptureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureModel.h; sourceTree = "<group>"; };
+		FFFC0D4F13A502170018B904 /* CaptureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureModel.m; sourceTree = "<group>"; };
+		FFFC0D5113A506770018B904 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FFFC0D6313A516A30018B904 /* ListCapturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCapturesViewController.h; sourceTree = "<group>"; };
+		FFFC0D6413A516A40018B904 /* ListCapturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCapturesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +98,7 @@
 				FFFC0D3413A4E39B0018B904 /* libzbar.a in Frameworks */,
 				FFFC0D4213A4E49F0018B904 /* libiconv.dylib in Frameworks */,
 				FFFC0D3A13A4E4640018B904 /* AVFoundation.framework in Frameworks */,
+				FFFC0D5213A506770018B904 /* CoreData.framework in Frameworks */,
 				FFFC0CF913A4E0D00018B904 /* CoreGraphics.framework in Frameworks */,
 				FFFC0D3C13A4E4760018B904 /* CoreMedia.framework in Frameworks */,
 				FFFC0D3E13A4E4810018B904 /* CoreVideo.framework in Frameworks */,
@@ -94,6 +111,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FFD1059113A5417C0081C8F8 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				FFD1059C13A542380081C8F8 /* 86-camera.png */,
+				FFD1059A13A541D70081C8F8 /* 195-barcode.png */,
+				FFD105A213A544B00081C8F8 /* AmebaLogo.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		FFFC0CE513A4E0D00018B904 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +143,7 @@
 			children = (
 				FFFC0D4113A4E49F0018B904 /* libiconv.dylib */,
 				FFFC0D3913A4E4640018B904 /* AVFoundation.framework */,
+				FFFC0D5113A506770018B904 /* CoreData.framework */,
 				FFFC0CF813A4E0D00018B904 /* CoreGraphics.framework */,
 				FFFC0D3B13A4E4760018B904 /* CoreMedia.framework */,
 				FFFC0D3D13A4E4810018B904 /* CoreVideo.framework */,
@@ -136,7 +164,11 @@
 				FFFC0D4313A4EB4F0018B904 /* CaptureBarcodeViewController.h */,
 				FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */,
 				FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */,
+				FFFC0D4E13A502170018B904 /* CaptureModel.h */,
+				FFFC0D4F13A502170018B904 /* CaptureModel.m */,
 				FFFC0D0613A4E0D10018B904 /* MainWindow.xib */,
+				FFFC0D6313A516A30018B904 /* ListCapturesViewController.h */,
+				FFFC0D6413A516A40018B904 /* ListCapturesViewController.m */,
 			);
 			path = BarcodeReaderClient;
 			sourceTree = "<group>";
@@ -144,9 +176,11 @@
 		FFFC0CFB13A4E0D10018B904 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FFD1059113A5417C0081C8F8 /* Icons */,
 				FFFC0CFC13A4E0D10018B904 /* BarcodeReaderClient-Info.plist */,
-				FFFC0CFD13A4E0D10018B904 /* InfoPlist.strings */,
+				FFFC0D4B13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodeld */,
 				FFFC0D0013A4E0D10018B904 /* BarcodeReaderClient-Prefix.pch */,
+				FFFC0CFD13A4E0D10018B904 /* InfoPlist.strings */,
 				FFFC0D0113A4E0D10018B904 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -280,6 +314,9 @@
 				FFFC0D3713A4E39B0018B904 /* zbar-helpicons.png in Resources */,
 				FFFC0D3813A4E39B0018B904 /* zbar-samples.png in Resources */,
 				FFFC0D4713A4EB500018B904 /* CaptureBarcodeViewController.xib in Resources */,
+				FFD1059B13A541D70081C8F8 /* 195-barcode.png in Resources */,
+				FFD1059D13A542380081C8F8 /* 86-camera.png in Resources */,
+				FFD105A313A544B00081C8F8 /* AmebaLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +330,9 @@
 				FFFC0D0213A4E0D10018B904 /* main.m in Sources */,
 				FFFC0D0513A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m in Sources */,
 				FFFC0D4613A4EB500018B904 /* CaptureBarcodeViewController.m in Sources */,
+				FFFC0D4D13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodeld in Sources */,
+				FFFC0D5013A502170018B904 /* CaptureModel.m in Sources */,
+				FFFC0D6513A516A50018B904 /* ListCapturesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,8 +445,22 @@
 				FFFC0D0D13A4E0D10018B904 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FFFC0D4B13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FFFC0D4C13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodel */,
+			);
+			currentVersion = FFFC0D4C13A5003B0018B904 /* BarcodeReaderClient-Model.xcdatamodel */;
+			path = "BarcodeReaderClient-Model.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FFFC0CE713A4E0D00018B904 /* Project object */;
 }

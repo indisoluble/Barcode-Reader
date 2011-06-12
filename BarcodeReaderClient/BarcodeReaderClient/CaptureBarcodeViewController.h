@@ -7,17 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 #import "ZBarSDK.h"
 
 
 
 @interface CaptureBarcodeViewController : UIViewController <ZBarReaderDelegate> {
+    
+    NSManagedObjectContext *__managedObjectContext;
+    
     UIImageView *__resultImage;
     UITextView *__resultText;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView *resultImage;
 @property (nonatomic, retain) IBOutlet UITextView *resultText;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+ managedObjectContext:(NSManagedObjectContext *)moc;
 
 @end

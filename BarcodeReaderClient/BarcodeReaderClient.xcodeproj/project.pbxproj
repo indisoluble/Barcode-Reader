@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FFFC0CF513A4E0D00018B904 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF413A4E0D00018B904 /* UIKit.framework */; };
+		FFFC0CF713A4E0D00018B904 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF613A4E0D00018B904 /* Foundation.framework */; };
+		FFFC0CF913A4E0D00018B904 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0CF813A4E0D00018B904 /* CoreGraphics.framework */; };
+		FFFC0CFF13A4E0D10018B904 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0CFD13A4E0D10018B904 /* InfoPlist.strings */; };
+		FFFC0D0213A4E0D10018B904 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D0113A4E0D10018B904 /* main.m */; };
+		FFFC0D0513A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D0413A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m */; };
+		FFFC0D0813A4E0D10018B904 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D0613A4E0D10018B904 /* MainWindow.xib */; };
+		FFFC0D3413A4E39B0018B904 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D2E13A4E39B0018B904 /* libzbar.a */; };
+		FFFC0D3513A4E39B0018B904 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D3013A4E39B0018B904 /* zbar-back.png */; };
+		FFFC0D3613A4E39B0018B904 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D3113A4E39B0018B904 /* zbar-help.html */; };
+		FFFC0D3713A4E39B0018B904 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D3213A4E39B0018B904 /* zbar-helpicons.png */; };
+		FFFC0D3813A4E39B0018B904 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D3313A4E39B0018B904 /* zbar-samples.png */; };
+		FFFC0D3A13A4E4640018B904 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D3913A4E4640018B904 /* AVFoundation.framework */; };
+		FFFC0D3C13A4E4760018B904 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D3B13A4E4760018B904 /* CoreMedia.framework */; };
+		FFFC0D3E13A4E4810018B904 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D3D13A4E4810018B904 /* CoreVideo.framework */; };
+		FFFC0D4013A4E48E0018B904 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D3F13A4E48E0018B904 /* QuartzCore.framework */; };
+		FFFC0D4213A4E49F0018B904 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FFFC0D4113A4E49F0018B904 /* libiconv.dylib */; };
+		FFFC0D4613A4EB500018B904 /* CaptureBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */; };
+		FFFC0D4713A4EB500018B904 /* CaptureBarcodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FFFC0CF013A4E0D00018B904 /* BarcodeReaderClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarcodeReaderClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFFC0CF413A4E0D00018B904 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FFFC0CF613A4E0D00018B904 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FFFC0CF813A4E0D00018B904 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FFFC0CFC13A4E0D10018B904 /* BarcodeReaderClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BarcodeReaderClient-Info.plist"; sourceTree = "<group>"; };
+		FFFC0CFE13A4E0D10018B904 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFFC0D0013A4E0D10018B904 /* BarcodeReaderClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BarcodeReaderClient-Prefix.pch"; sourceTree = "<group>"; };
+		FFFC0D0113A4E0D10018B904 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FFFC0D0313A4E0D10018B904 /* BarcodeReaderClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarcodeReaderClientAppDelegate.h; sourceTree = "<group>"; };
+		FFFC0D0413A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarcodeReaderClientAppDelegate.m; sourceTree = "<group>"; };
+		FFFC0D0713A4E0D10018B904 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		FFFC0D1B13A4E39B0018B904 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		FFFC0D1C13A4E39B0018B904 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		FFFC0D1D13A4E39B0018B904 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		FFFC0D1E13A4E39B0018B904 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		FFFC0D1F13A4E39B0018B904 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		FFFC0D2013A4E39B0018B904 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		FFFC0D2113A4E39B0018B904 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		FFFC0D2213A4E39B0018B904 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		FFFC0D2313A4E39B0018B904 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		FFFC0D2413A4E39B0018B904 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		FFFC0D2513A4E39B0018B904 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		FFFC0D2613A4E39B0018B904 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		FFFC0D2713A4E39B0018B904 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		FFFC0D2813A4E39B0018B904 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		FFFC0D2913A4E39B0018B904 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		FFFC0D2A13A4E39B0018B904 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		FFFC0D2B13A4E39B0018B904 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		FFFC0D2C13A4E39B0018B904 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		FFFC0D2D13A4E39B0018B904 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		FFFC0D2E13A4E39B0018B904 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		FFFC0D3013A4E39B0018B904 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		FFFC0D3113A4E39B0018B904 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		FFFC0D3213A4E39B0018B904 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		FFFC0D3313A4E39B0018B904 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		FFFC0D3913A4E4640018B904 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FFFC0D3B13A4E4760018B904 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FFFC0D3D13A4E4810018B904 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FFFC0D3F13A4E48E0018B904 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FFFC0D4113A4E49F0018B904 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		FFFC0D4313A4EB4F0018B904 /* CaptureBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureBarcodeViewController.h; sourceTree = "<group>"; };
+		FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureBarcodeViewController.m; sourceTree = "<group>"; };
+		FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptureBarcodeViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FFFC0CED13A4E0D00018B904 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFFC0D3413A4E39B0018B904 /* libzbar.a in Frameworks */,
+				FFFC0D4213A4E49F0018B904 /* libiconv.dylib in Frameworks */,
+				FFFC0D3A13A4E4640018B904 /* AVFoundation.framework in Frameworks */,
+				FFFC0CF913A4E0D00018B904 /* CoreGraphics.framework in Frameworks */,
+				FFFC0D3C13A4E4760018B904 /* CoreMedia.framework in Frameworks */,
+				FFFC0D3E13A4E4810018B904 /* CoreVideo.framework in Frameworks */,
+				FFFC0CF713A4E0D00018B904 /* Foundation.framework in Frameworks */,
+				FFFC0D4013A4E48E0018B904 /* QuartzCore.framework in Frameworks */,
+				FFFC0CF513A4E0D00018B904 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FFFC0CE513A4E0D00018B904 = {
+			isa = PBXGroup;
+			children = (
+				FFFC0CFA13A4E0D10018B904 /* BarcodeReaderClient */,
+				FFFC0CF313A4E0D00018B904 /* Frameworks */,
+				FFFC0CF113A4E0D00018B904 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FFFC0CF113A4E0D00018B904 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0CF013A4E0D00018B904 /* BarcodeReaderClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FFFC0CF313A4E0D00018B904 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D4113A4E49F0018B904 /* libiconv.dylib */,
+				FFFC0D3913A4E4640018B904 /* AVFoundation.framework */,
+				FFFC0CF813A4E0D00018B904 /* CoreGraphics.framework */,
+				FFFC0D3B13A4E4760018B904 /* CoreMedia.framework */,
+				FFFC0D3D13A4E4810018B904 /* CoreVideo.framework */,
+				FFFC0CF613A4E0D00018B904 /* Foundation.framework */,
+				FFFC0D3F13A4E48E0018B904 /* QuartzCore.framework */,
+				FFFC0CF413A4E0D00018B904 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFFC0CFA13A4E0D10018B904 /* BarcodeReaderClient */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1613A4E3600018B904 /* Externals */,
+				FFFC0CFB13A4E0D10018B904 /* Supporting Files */,
+				FFFC0D0313A4E0D10018B904 /* BarcodeReaderClientAppDelegate.h */,
+				FFFC0D0413A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m */,
+				FFFC0D4313A4EB4F0018B904 /* CaptureBarcodeViewController.h */,
+				FFFC0D4413A4EB4F0018B904 /* CaptureBarcodeViewController.m */,
+				FFFC0D4513A4EB500018B904 /* CaptureBarcodeViewController.xib */,
+				FFFC0D0613A4E0D10018B904 /* MainWindow.xib */,
+			);
+			path = BarcodeReaderClient;
+			sourceTree = "<group>";
+		};
+		FFFC0CFB13A4E0D10018B904 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0CFC13A4E0D10018B904 /* BarcodeReaderClient-Info.plist */,
+				FFFC0CFD13A4E0D10018B904 /* InfoPlist.strings */,
+				FFFC0D0013A4E0D10018B904 /* BarcodeReaderClient-Prefix.pch */,
+				FFFC0D0113A4E0D10018B904 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FFFC0D1613A4E3600018B904 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1713A4E39B0018B904 /* ZBarSDK */,
+			);
+			name = Externals;
+			sourceTree = "<group>";
+		};
+		FFFC0D1713A4E39B0018B904 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1813A4E39B0018B904 /* Headers */,
+				FFFC0D2F13A4E39B0018B904 /* Resources */,
+				FFFC0D2E13A4E39B0018B904 /* libzbar.a */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		FFFC0D1813A4E39B0018B904 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1913A4E39B0018B904 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		FFFC0D1913A4E39B0018B904 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1A13A4E39B0018B904 /* zbar */,
+				FFFC0D2413A4E39B0018B904 /* zbar.h */,
+				FFFC0D2513A4E39B0018B904 /* ZBarCaptureReader.h */,
+				FFFC0D2613A4E39B0018B904 /* ZBarHelpController.h */,
+				FFFC0D2713A4E39B0018B904 /* ZBarImage.h */,
+				FFFC0D2813A4E39B0018B904 /* ZBarImageScanner.h */,
+				FFFC0D2913A4E39B0018B904 /* ZBarReaderController.h */,
+				FFFC0D2A13A4E39B0018B904 /* ZBarReaderView.h */,
+				FFFC0D2B13A4E39B0018B904 /* ZBarReaderViewController.h */,
+				FFFC0D2C13A4E39B0018B904 /* ZBarSDK.h */,
+				FFFC0D2D13A4E39B0018B904 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		FFFC0D1A13A4E39B0018B904 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D1B13A4E39B0018B904 /* Decoder.h */,
+				FFFC0D1C13A4E39B0018B904 /* Exception.h */,
+				FFFC0D1D13A4E39B0018B904 /* Image.h */,
+				FFFC0D1E13A4E39B0018B904 /* ImageScanner.h */,
+				FFFC0D1F13A4E39B0018B904 /* Processor.h */,
+				FFFC0D2013A4E39B0018B904 /* Scanner.h */,
+				FFFC0D2113A4E39B0018B904 /* Symbol.h */,
+				FFFC0D2213A4E39B0018B904 /* Video.h */,
+				FFFC0D2313A4E39B0018B904 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		FFFC0D2F13A4E39B0018B904 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC0D3013A4E39B0018B904 /* zbar-back.png */,
+				FFFC0D3113A4E39B0018B904 /* zbar-help.html */,
+				FFFC0D3213A4E39B0018B904 /* zbar-helpicons.png */,
+				FFFC0D3313A4E39B0018B904 /* zbar-samples.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FFFC0CEF13A4E0D00018B904 /* BarcodeReaderClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFFC0D0B13A4E0D10018B904 /* Build configuration list for PBXNativeTarget "BarcodeReaderClient" */;
+			buildPhases = (
+				FFFC0CEC13A4E0D00018B904 /* Sources */,
+				FFFC0CED13A4E0D00018B904 /* Frameworks */,
+				FFFC0CEE13A4E0D00018B904 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BarcodeReaderClient;
+			productName = BarcodeReaderClient;
+			productReference = FFFC0CF013A4E0D00018B904 /* BarcodeReaderClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FFFC0CE713A4E0D00018B904 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Enrique de la Torre";
+			};
+			buildConfigurationList = FFFC0CEA13A4E0D00018B904 /* Build configuration list for PBXProject "BarcodeReaderClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FFFC0CE513A4E0D00018B904;
+			productRefGroup = FFFC0CF113A4E0D00018B904 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FFFC0CEF13A4E0D00018B904 /* BarcodeReaderClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FFFC0CEE13A4E0D00018B904 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFFC0CFF13A4E0D10018B904 /* InfoPlist.strings in Resources */,
+				FFFC0D0813A4E0D10018B904 /* MainWindow.xib in Resources */,
+				FFFC0D3513A4E39B0018B904 /* zbar-back.png in Resources */,
+				FFFC0D3613A4E39B0018B904 /* zbar-help.html in Resources */,
+				FFFC0D3713A4E39B0018B904 /* zbar-helpicons.png in Resources */,
+				FFFC0D3813A4E39B0018B904 /* zbar-samples.png in Resources */,
+				FFFC0D4713A4EB500018B904 /* CaptureBarcodeViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FFFC0CEC13A4E0D00018B904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFFC0D0213A4E0D10018B904 /* main.m in Sources */,
+				FFFC0D0513A4E0D10018B904 /* BarcodeReaderClientAppDelegate.m in Sources */,
+				FFFC0D4613A4EB500018B904 /* CaptureBarcodeViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FFFC0CFD13A4E0D10018B904 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FFFC0CFE13A4E0D10018B904 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FFFC0D0613A4E0D10018B904 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FFFC0D0713A4E0D10018B904 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FFFC0D0913A4E0D10018B904 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FFFC0D0A13A4E0D10018B904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		FFFC0D0C13A4E0D10018B904 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BarcodeReaderClient/BarcodeReaderClient-Prefix.pch";
+				INFOPLIST_FILE = "BarcodeReaderClient/BarcodeReaderClient-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/BarcodeReaderClient/ZBarSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FFFC0D0D13A4E0D10018B904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BarcodeReaderClient/BarcodeReaderClient-Prefix.pch";
+				INFOPLIST_FILE = "BarcodeReaderClient/BarcodeReaderClient-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/BarcodeReaderClient/ZBarSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FFFC0CEA13A4E0D00018B904 /* Build configuration list for PBXProject "BarcodeReaderClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFFC0D0913A4E0D10018B904 /* Debug */,
+				FFFC0D0A13A4E0D10018B904 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFFC0D0B13A4E0D10018B904 /* Build configuration list for PBXNativeTarget "BarcodeReaderClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFFC0D0C13A4E0D10018B904 /* Debug */,
+				FFFC0D0D13A4E0D10018B904 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FFFC0CE713A4E0D00018B904 /* Project object */;
+}

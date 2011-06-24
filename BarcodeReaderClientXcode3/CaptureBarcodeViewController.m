@@ -9,6 +9,9 @@
 #import "CaptureBarcodeViewController.h"
 #import "CaptureModel.h"
 
+#import <Ice/Ice.h>
+#import <Printer.h>
+
 
 
 #define CAPTUREBARCODE_IMAGESIZE 48
@@ -17,11 +20,17 @@
 
 @interface CaptureBarcodeViewController ()
 
+
 #pragma mark -
 #pragma mark Properties
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-#pragma mark - Methods
+
+#pragma mark -
+#pragma mark Methods
+- (void)saveBarcode:(NSString *)barcode image:(UIImage *)image;
+- (void)sendBarcode:(NSString *)barcode;
+
 - (UIImage *)resize:(UIImage *)image;
 
 @end
@@ -61,7 +70,7 @@
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Memory management
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -121,21 +130,10 @@
     self.resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
     
     // Save data
-    if (self.managedObjectContext) {
-        
-        NSLog(@"Save capture to database");
-		
-        CaptureModel *capture = (CaptureModel *)[NSEntityDescription insertNewObjectForEntityForName:@"CaptureModel"
-                                                                              inManagedObjectContext:self.managedObjectContext];
-        capture.barcode = self.resultText.text;
-        capture.image = UIImageJPEGRepresentation([self resize:self.resultImage.image], 1.0);
-        
-        NSError *error;
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Error saving data downloaded from server <%@>", error);
-        }
-        
-    }
+	[self saveBarcode:self.resultText.text image:self.resultImage.image];
+	
+	// Send data to remote server
+	[self sendBarcode:self.resultText.text];
     
     // Dismiss the controller (NB dismiss from the *reader*!)
     [reader dismissModalViewControllerAnimated: YES];
@@ -159,6 +157,49 @@
     
     // Present the controller
     [self presentModalViewController:reader animated:YES];
+}
+
+- (void)saveBarcode:(NSString *)barcode image:(UIImage *)image
+{
+	if (self.managedObjectContext) {
+        
+        NSLog(@"Save capture to database");
+		
+        CaptureModel *capture = (CaptureModel *)[NSEntityDescription insertNewObjectForEntityForName:@"CaptureModel"
+                                                                              inManagedObjectContext:self.managedObjectContext];
+        capture.barcode = barcode;
+        capture.image = UIImageJPEGRepresentation([self resize:image], 1.0);
+        
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error saving data downloaded from server <%@>", error);
+        }
+        
+    }	
+}
+
+- (void)sendBarcode:(NSString *)barcode
+{
+	NSLog(@"Send barcode to server");
+	
+	id<ICECommunicator> communicator = nil;
+	@try {
+		communicator = [ICEUtil createCommunicator];
+		id<ICEObjectPrx> base = [communicator stringToProxy:@"SimplePrinter:tcp -h 127.0.0.1 -p 10000"];
+		id<DemoPrinterPrx> printer = [DemoPrinterPrx checkedCast:base];
+		
+		[printer printString:[NSString stringWithFormat:@"New barcode scanned <<%@>>", barcode]];
+	}
+	@catch (NSException * ex) {
+		NSLog(@"%@", ex);
+	}
+	
+	@try {
+		[communicator destroy];
+	}
+	@catch (NSException * ex) {
+		NSLog(@"%@", ex);
+	}
 }
 
 - (UIImage *)resize:(UIImage *)image

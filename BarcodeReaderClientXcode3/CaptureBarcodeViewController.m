@@ -185,7 +185,8 @@
 	id<ICECommunicator> communicator = nil;
 	@try {
 		communicator = [ICEUtil createCommunicator];
-		id<ICEObjectPrx> base = [communicator stringToProxy:@"SimplePrinter:tcp -h 127.0.0.1 -p 10000"];
+#warning Change IP depending on your test
+		id<ICEObjectPrx> base = [communicator stringToProxy:@"SimplePrinter:tcp -h XXX.XXX.XXX.XXX -p 10000"];
 		id<DemoPrinterPrx> printer = [DemoPrinterPrx checkedCast:base];
 		
 		[printer printString:[NSString stringWithFormat:@"New barcode scanned <<%@>>", barcode]];

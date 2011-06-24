@@ -1,9 +1,25 @@
 h1. Barcode Reader
 
+
+
 h2. Introduction
 
-bq. This application is born with the porpouse to test the "Ice library":http://www.zeroc.com/icetouch/index.html. Combined with "Zbar library":http://zbar.sourceforge.net/, I pretend to create an application usefull for retail.
+This application is based on "Zbar library":http://zbar.sourceforge.net/ to read barcodes but the main purpose of this project is to test the "Ice library":http://www.zeroc.com/icetouch/index.html on iOS devices.
+
+h2. Tips
+
+There is not much to say about how to install/configure "Zbar library":http://zbar.sourceforge.net/, just follows the instructions on its "page":http://zbar.sourceforge.net/iphone/sdkdoc/install.html and it'll work.
+
+Now, "Ice":http://www.zeroc.com/icetouch/index.html requires to know some things, I'm not saying anything that is not in its documentation page or forum but, if you are like me that prefers to start with the code instead of read the documentation, this will help you:
+
+* IceTouch is not compatible with XCode 4. For this reason, I had to install XCode 3.2.6 in other folder different from /Developer.
+* Because I had to install XCode 3.2.6 in other folder different from /Developer, the "binary distribution":http://www.zeroc.com/icetouch/download.html didn't work for me. I had to compile the source code but this is really simple, inside the source distribution there's a file named INSTALL which explains how to do that. Just remember that the SDK for XCode 3.2.6 is 4.3, assign this version to IPHONE_SDK_VERSION variable in Make.rules.
+* After compile and install the library, you have to change the configuration of your XCode project. Look for a file named RELEASE_NOTES inside of source or binary distribution, it explains this after the title "8. Xcode project settings".
+* The library is compiled for armv6 architecture, this means that whenever you try to compile for other architecture (armv7) it fails, it necessaries to avoid XCode to compile for another. So, set as "Active Architecture" armv6, check "Build Active Architecture Only" in the build settings for the target and delete armv7 from "Valid Architectures".
+* Because you have installed the plugin for IceTouch in XCode, you don't have to care about generate .h and .m with the Slice, just import the .ice file in your project.
+
+
 
 h2. License
 
-bq. It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file
+It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file

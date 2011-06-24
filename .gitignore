@@ -1,1 +1,8 @@
+# XCode3 noise
+BarcodeReaderClientXcode3/**/*.pbxuser
+BarcodeReaderClientXcode3/**/*.mode1v3
+BarcodeReaderClientXcode3/build/*
+
+# OSX noise
 .DS_Store
+profile

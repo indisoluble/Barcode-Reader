@@ -21,6 +21,6 @@ if ic:
 		ic.destroy()
 	except:
 		traceback.print_exc()
-	status = 1
+		status = 1
 
 sys.exit(status)

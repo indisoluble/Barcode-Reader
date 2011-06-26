@@ -162,7 +162,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
@@ -318,8 +318,9 @@
 	
     // Configure the cell to show the book's title
     CaptureModel *oneCapture = [self.captureList objectAtIndexPath:indexPath];
-    cell.textLabel.text = oneCapture.barcode;
     cell.imageView.image = [UIImage imageWithData:oneCapture.image];
+	cell.textLabel.text = oneCapture.barcode;
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f €", [oneCapture.price floatValue] / 100];
     
 }
 

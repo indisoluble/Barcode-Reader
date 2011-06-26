@@ -10,7 +10,7 @@
 #import "CaptureModel.h"
 
 #import <Ice/Ice.h>
-#import <Printer.h>
+#import <Barcode.h>
 
 
 
@@ -29,9 +29,9 @@
 #pragma mark -
 #pragma mark Methods
 - (void)saveBarcode:(NSString *)barcode image:(UIImage *)image;
-- (void)sendBarcode:(NSString *)barcode;
 
 - (UIImage *)resize:(UIImage *)image;
+- (NSNumber *)getPriceForBarcode:(NSString *)barcode;
 
 @end
 
@@ -132,9 +132,6 @@
     // Save data
 	[self saveBarcode:self.resultText.text image:self.resultImage.image];
 	
-	// Send data to remote server
-	[self sendBarcode:self.resultText.text];
-    
     // Dismiss the controller (NB dismiss from the *reader*!)
     [reader dismissModalViewControllerAnimated: YES];
     
@@ -169,38 +166,18 @@
                                                                               inManagedObjectContext:self.managedObjectContext];
         capture.barcode = barcode;
         capture.image = UIImageJPEGRepresentation([self resize:image], 1.0);
+		capture.price = [self getPriceForBarcode:capture.barcode];
         
         NSError *error;
         if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Error saving data downloaded from server <%@>", error);
+            NSLog(@"Error saving data <%@>", error);
         }
+		else {
+			NSLog(@"Data saved: <%@, %@>", capture.barcode, capture.price);
+		}
+
         
     }	
-}
-
-- (void)sendBarcode:(NSString *)barcode
-{
-	NSLog(@"Send barcode to server");
-	
-	id<ICECommunicator> communicator = nil;
-	@try {
-		communicator = [ICEUtil createCommunicator];
-#warning Change IP depending on your test
-		id<ICEObjectPrx> base = [communicator stringToProxy:@"SimplePrinter:tcp -h XXX.XXX.XXX.XXX -p 10000"];
-		id<DemoPrinterPrx> printer = [DemoPrinterPrx checkedCast:base];
-		
-		[printer printString:[NSString stringWithFormat:@"New barcode scanned <<%@>>", barcode]];
-	}
-	@catch (NSException * ex) {
-		NSLog(@"%@", ex);
-	}
-	
-	@try {
-		[communicator destroy];
-	}
-	@catch (NSException * ex) {
-		NSLog(@"%@", ex);
-	}
 }
 
 - (UIImage *)resize:(UIImage *)image
@@ -223,6 +200,35 @@
     }
 	
     return imageResized;
+}
+
+- (NSNumber *)getPriceForBarcode:(NSString *)barcode
+{
+	int price = -1;
+	
+	NSLog(@"Get price from server");
+	
+	id<ICECommunicator> communicator = nil;
+	@try {
+		communicator = [ICEUtil createCommunicator];
+#warning Change IP depending on your test
+		id<ICEObjectPrx> base = [communicator stringToProxy:@"BarcodeRemoteDB:tcp -h XXX.XXX.XXX.XXX -p 10000"];
+		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
+		
+		price = [barcodeDB priceForBarcode:barcode];
+	}
+	@catch (NSException * ex) {
+		NSLog(@"%@", ex);
+	}
+	
+	@try {
+		[communicator destroy];
+	}
+	@catch (NSException * ex) {
+		NSLog(@"%@", ex);
+	}
+	
+	return [NSNumber numberWithInt:price];
 }
 
 

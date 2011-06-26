@@ -1,8 +1,11 @@
 # Django noise
+BarcodeReaderServerDjango/local_settings.py
 BarcodeReaderServerDjango/*.log
 BarcodeReaderServerDjango/*.pot
 BarcodeReaderServerDjango/*.pyc
-BarcodeReaderServerDjango/local_settings.py
+BarcodeReaderServerDjango/**/*.log
+BarcodeReaderServerDjango/**/*.pot
+BarcodeReaderServerDjango/**/*.pyc
 
 # XCode3 noise
 BarcodeReaderClientXcode3/**/*.pbxuser

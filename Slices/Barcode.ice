@@ -1,5 +1,5 @@
 module Demo {
     interface Barcode {
-        int priceForBarcode(string bc);
+        int priceForBarcode(string code);
     };
 };

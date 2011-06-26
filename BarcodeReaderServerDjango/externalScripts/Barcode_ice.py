@@ -39,7 +39,7 @@ if not _M_Demo.__dict__.has_key('Barcode'):
         #
         # Operation signatures.
         #
-        # def priceForBarcode(self, bc, current=None):
+        # def priceForBarcode(self, code, current=None):
 
         def __str__(self):
             return IcePy.stringify(self, _M_Demo._t_Barcode)
@@ -49,8 +49,8 @@ if not _M_Demo.__dict__.has_key('Barcode'):
     _M_Demo.BarcodePrx = Ice.createTempClass()
     class BarcodePrx(Ice.ObjectPrx):
 
-        def priceForBarcode(self, bc, _ctx=None):
-            return _M_Demo.Barcode._op_priceForBarcode.invoke(self, ((bc, ), _ctx))
+        def priceForBarcode(self, code, _ctx=None):
+            return _M_Demo.Barcode._op_priceForBarcode.invoke(self, ((code, ), _ctx))
 
         def checkedCast(proxy, facetOrCtx=None, _ctx=None):
             return _M_Demo.BarcodePrx.ice_checkedCast(proxy, '::Demo::Barcode', facetOrCtx, _ctx)

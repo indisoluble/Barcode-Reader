@@ -4,6 +4,8 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 admin.autodiscover()
 
+from BarcodeReaderServerDjango import settings
+
 urlpatterns = patterns('',
     # Example:
     # (r'^BarcodeReaderServerDjango/', include('BarcodeReaderServerDjango.foo.urls')),
@@ -13,4 +15,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+
+    (r'^storage/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
 )

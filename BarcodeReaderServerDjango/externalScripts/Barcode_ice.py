@@ -19,6 +19,9 @@ if not Ice.__dict__.has_key("_struct_marker"):
 _M_Demo = Ice.openModule('Demo')
 __name__ = 'Demo'
 
+if not _M_Demo.__dict__.has_key('_t_ByteSeq'):
+    _M_Demo._t_ByteSeq = IcePy.defineSequence('::Demo::ByteSeq', (), IcePy._t_byte)
+
 if not _M_Demo.__dict__.has_key('Barcode'):
     _M_Demo.Barcode = Ice.createTempClass()
     class Barcode(Ice.Object):
@@ -40,6 +43,7 @@ if not _M_Demo.__dict__.has_key('Barcode'):
         # Operation signatures.
         #
         # def priceForBarcode(self, code, current=None):
+        # def saveProduct(self, bc, desc, price, image, current=None):
 
         def __str__(self):
             return IcePy.stringify(self, _M_Demo._t_Barcode)
@@ -51,6 +55,9 @@ if not _M_Demo.__dict__.has_key('Barcode'):
 
         def priceForBarcode(self, code, _ctx=None):
             return _M_Demo.Barcode._op_priceForBarcode.invoke(self, ((code, ), _ctx))
+
+        def saveProduct(self, bc, desc, price, image, _ctx=None):
+            return _M_Demo.Barcode._op_saveProduct.invoke(self, ((bc, desc, price, image), _ctx))
 
         def checkedCast(proxy, facetOrCtx=None, _ctx=None):
             return _M_Demo.BarcodePrx.ice_checkedCast(proxy, '::Demo::Barcode', facetOrCtx, _ctx)
@@ -66,6 +73,7 @@ if not _M_Demo.__dict__.has_key('Barcode'):
     Barcode.ice_type = _M_Demo._t_Barcode
 
     Barcode._op_priceForBarcode = IcePy.Operation('priceForBarcode', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, (), (((), IcePy._t_string),), (), IcePy._t_int, ())
+    Barcode._op_saveProduct = IcePy.Operation('saveProduct', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, (), (((), IcePy._t_string), ((), IcePy._t_string), ((), IcePy._t_int), ((), _M_Demo._t_ByteSeq)), (), IcePy._t_int, ())
 
     _M_Demo.Barcode = Barcode
     del Barcode

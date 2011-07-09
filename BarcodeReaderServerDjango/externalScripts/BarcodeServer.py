@@ -17,6 +17,7 @@ setup_environ(settings)
 
 # Implementation of Barcode Interface
 class BarcodeI(Demo.Barcode):
+
     def priceForBarcode(self, code, current=None):
         print "Barcode received <<" + code + ">>"
         objects = Barcode.objects.all()
@@ -25,6 +26,26 @@ class BarcodeI(Demo.Barcode):
                 return obj.price
         
         return -1
+
+
+    def saveProduct(self, bc, desc, price, image, current=None):
+        error = 0
+        try:
+            imagePath = ""
+            if len(image) > 0:
+                print "Image received ignored. Not implemented this functionality yet. Used default image"
+            else:
+                print "No image received. Used default image"
+            imagePath = "images/AmebaLogo.png"
+
+            print "Save barcode (%s, %s, %d, %s)" % (bc, desc, price, imagePath)
+            b = Barcode(bc=bc, desc=desc, price=price, image=imagePath)
+            b.save()
+        except:
+            print sys.exc_info()
+            error = -1
+        
+        return error
 
 
 

@@ -6,6 +6,10 @@ BarcodeReaderServerDjango/*.pyc
 BarcodeReaderServerDjango/**/*.log
 BarcodeReaderServerDjango/**/*.pot
 BarcodeReaderServerDjango/**/*.pyc
+BarcodeReaderServerDjango/**/**/*.log
+BarcodeReaderServerDjango/**/**/*.pot
+BarcodeReaderServerDjango/**/**/*.pyc
+
 
 # XCode3 noise
 BarcodeReaderClientXcode3/**/*.pbxuser

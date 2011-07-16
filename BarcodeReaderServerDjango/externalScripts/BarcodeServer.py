@@ -1,5 +1,5 @@
-import sys, os
-import traceback, Ice, Demo
+import sys, os, traceback
+import Ice, Demo
 
 
 
@@ -18,6 +18,22 @@ setup_environ(settings)
 # Implementation of Barcode Interface
 class BarcodeI(Demo.Barcode):
 
+    def storeImage(self, image):
+        i = -1
+        absPath = ""
+        imagePath = ""
+        while ((i < 0) or os.path.exists(absPath)):
+             i = i + 1
+             imagePath = "images/recv%d" % i
+             absPath = "%s%s" % (settings.MEDIA_ROOT, imagePath)
+        
+        output = open(absPath, 'wb')
+        output.write(image)
+        output.close()
+        
+        return imagePath
+
+
     def priceForBarcode(self, code, current=None):
         print "Barcode received <<" + code + ">>"
         objects = Barcode.objects.all()
@@ -33,10 +49,11 @@ class BarcodeI(Demo.Barcode):
         try:
             imagePath = ""
             if len(image) > 0:
-                print "Image received ignored. Not implemented this functionality yet. Used default image"
+                print "Image received"
+                imagePath = self.storeImage(image)
             else:
                 print "No image received. Used default image"
-            imagePath = "images/AmebaLogo.png"
+                imagePath = "images/AmebaLogo.png"
 
             print "Save barcode (%s, %s, %d, %s)" % (bc, desc, price, imagePath)
             b = Barcode(bc=bc, desc=desc, price=price, image=imagePath)

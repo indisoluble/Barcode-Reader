@@ -1,6 +1,8 @@
 import sys, traceback, Ice
 import Demo
 
+
+
 status = 0
 ic = None
 try:
@@ -16,7 +18,9 @@ try:
     
     print "Add new barcodes"
     print "Save barcode (<1234567890123>, <Add 01>, 3303, <>) ==> %d" % barcodeDB.saveProduct("1234567890123", "Add 01", 3303, "")
-    print "Save barcode (<3210987654321>, <Add 10>, 6606, <>) ==> %d" % barcodeDB.saveProduct("3210987654321", "Add 10", 6606, "")
+    
+    f = open(sys.argv[1], 'r')
+    print "Save barcode (<1100110011001>, <Add 22>, 8808, <%s>) ==> %d" % (sys.argv[1], barcodeDB.saveProduct("1100110011001", "Add 22", 8808, f.read()))
 except:
     traceback.print_exc()
     status = 1

@@ -28,6 +28,6 @@
                bundle:(NSBundle *)nibBundleOrNil
  managedObjectContext:(NSManagedObjectContext *)moc;
 
-- (IBAction) scanButtonTapped;
+- (IBAction)scanButtonTapped;
 
 @end

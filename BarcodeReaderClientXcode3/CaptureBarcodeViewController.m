@@ -14,7 +14,18 @@
 
 
 
-#define CAPTUREBARCODE_IMAGESIZE 48
+typedef enum {
+	CaptureBarcodePriceFound,
+	CaptureBarcodePriceNotFound,
+	CaptureBarcodePriceError
+} ResultGetPriceType;
+
+
+
+#define CAPTUREBARCODE_IMAGESIZE 100
+#warning Change IP depending on your test
+#define CAPTUREBARCODE_IP "XXX.XXX.XXX.XXX"
+#define CAPTUREBARCODE_PORT 10000
 
 
 
@@ -30,14 +41,20 @@
 #pragma mark Methods
 - (void)saveBarcode:(NSString *)barcode image:(UIImage *)image;
 
+- (ResultGetPriceType)getPriceRemotelyForBarcode:(NSString *)barcode price:(NSNumber **)price;
+
+- (BOOL)createLocallyBarcode:(NSString *)barcode image:(UIImage *)image price:(NSNumber *)price;
+- (BOOL)createRemotelyBarcode:(NSString *)barcode image:(UIImage *)image getPrice:(NSNumber **)price;
+
 - (UIImage *)resize:(UIImage *)image;
-- (NSNumber *)getPriceForBarcode:(NSString *)barcode;
+- (void)showSimpleAlertWithTitle:(NSString *)tt message:(NSString *)msg;
 
 @end
 
 
 
 @implementation CaptureBarcodeViewController
+
 
 #pragma mark -
 #pragma mark Synthesized methods
@@ -115,7 +132,7 @@
 
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate methods
-- (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
+- (void)imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
 {
     // Get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
@@ -141,7 +158,7 @@
 
 #pragma mark -
 #pragma mark Private methods
-- (IBAction) scanButtonTapped
+- (IBAction)scanButtonTapped
 {
     NSLog(@"Start scanning ...");
     
@@ -158,26 +175,134 @@
 
 - (void)saveBarcode:(NSString *)barcode image:(UIImage *)image
 {
-	if (self.managedObjectContext) {
-        
-        NSLog(@"Save capture to database");
+	NSNumber *price = nil;
+	
+	NSLog(@"Save capture to database");
+	
+	switch ([self getPriceRemotelyForBarcode:barcode price:&price]) {
+		case CaptureBarcodePriceNotFound:
+			if (![self createRemotelyBarcode:barcode image:image getPrice:&price]) {
+				break;
+			}
+			
+		case CaptureBarcodePriceFound:
+			[self createLocallyBarcode:barcode image:image price:price];
+			
+			break;
+		default:
+			break;
+	}
+	
+}
+
+- (ResultGetPriceType)getPriceRemotelyForBarcode:(NSString *)barcode price:(NSNumber **)price;
+{
+	int priceInt = -1;
+	ResultGetPriceType result = CaptureBarcodePriceNotFound;
+	
+	NSLog(@"Get price from server");
+	
+	id<ICECommunicator> communicator = nil;
+	@try {
+		communicator = [ICEUtil createCommunicator];
+		id<ICEObjectPrx> base = [communicator stringToProxy:
+								 [NSString stringWithFormat:@"BarcodeRemoteDB:tcp -h %s -p %d",CAPTUREBARCODE_IP, CAPTUREBARCODE_PORT]];
+		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
 		
-        CaptureModel *capture = (CaptureModel *)[NSEntityDescription insertNewObjectForEntityForName:@"CaptureModel"
-                                                                              inManagedObjectContext:self.managedObjectContext];
-        capture.barcode = barcode;
-        capture.image = UIImageJPEGRepresentation([self resize:image], 1.0);
-		capture.price = [self getPriceForBarcode:capture.barcode];
-        
-        NSError *error;
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Error saving data <%@>", error);
-        }
+		priceInt = [barcodeDB priceForBarcode:barcode];
+		result = (priceInt < 0 ? CaptureBarcodePriceNotFound : CaptureBarcodePriceFound);
+		if (result == CaptureBarcodePriceFound) {
+			*price = [NSNumber numberWithInt:priceInt];
+		}
+	}
+	@catch (NSException * ex) {
+		result = CaptureBarcodePriceError;
+		NSLog(@"%@", ex);
+		[self showSimpleAlertWithTitle:@"Getting price for barcode" message:[ex reason]];
+	}
+	
+	@try {
+		[communicator destroy];
+	}
+	@catch (NSException * ex) {
+		result = CaptureBarcodePriceError;
+		NSLog(@"%@", ex);
+		[self showSimpleAlertWithTitle:@"Destroying conection" message:[ex reason]];
+	}
+	
+	return result;
+}
+
+- (BOOL)createLocallyBarcode:(NSString *)barcode image:(UIImage *)image price:(NSNumber *)price
+{
+	BOOL result = NO;
+	
+	if (self.managedObjectContext) {
+		
+		CaptureModel *capture = (CaptureModel *)[NSEntityDescription insertNewObjectForEntityForName:@"CaptureModel"
+																			  inManagedObjectContext:self.managedObjectContext];
+		capture.barcode = barcode;
+		capture.image = UIImagePNGRepresentation([self resize:image]);
+		capture.price = price;
+		
+		NSError *error;
+		if (![self.managedObjectContext save:&error]) {
+			NSLog(@"Error saving data <%@>", error);
+			[self showSimpleAlertWithTitle:@"Creating locally barcode" message:[error localizedFailureReason]];
+		}
 		else {
+			result = YES;
 			NSLog(@"Data saved: <%@, %@>", capture.barcode, capture.price);
 		}
+		
+	}
+	
+	return result;
+}
 
-        
-    }	
+- (BOOL)createRemotelyBarcode:(NSString *)barcode image:(UIImage *)image getPrice:(NSNumber **)price
+{
+	NSString *descAux = nil;
+	int priceAux = -1;
+	NSData *imageAux = nil;
+	
+	BOOL result = YES;
+	
+	NSLog(@"Creating barcode in server");
+	
+	id<ICECommunicator> communicator = nil;
+	@try {
+		communicator = [ICEUtil createCommunicator];
+		id<ICEObjectPrx> base = [communicator stringToProxy:
+								 [NSString stringWithFormat:@"BarcodeRemoteDB:tcp -h %s -p %d",CAPTUREBARCODE_IP, CAPTUREBARCODE_PORT]];
+		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
+		
+		descAux = @"Test iOS";
+		priceAux = 7777;
+		imageAux = UIImagePNGRepresentation([self resize:image]);
+		
+		result = ([barcodeDB saveProduct:barcode desc:descAux price:priceAux image:imageAux] < 0 ? NO : YES);
+	}
+	@catch (NSException * ex) {
+		result = NO;
+		NSLog(@"%@", ex);
+		[self showSimpleAlertWithTitle:@"Creating barcode in server" message:[ex reason]];
+	}
+	
+	@try {
+		[communicator destroy];
+	}
+	@catch (NSException * ex) {
+		result = NO;
+		NSLog(@"%@", ex);
+		[self showSimpleAlertWithTitle:@"Destroying conection" message:[ex reason]];
+	}
+	
+	if (result) {
+		*price = [NSNumber numberWithInt:priceAux];;
+	}
+	
+	return result;	
 }
 
 - (UIImage *)resize:(UIImage *)image
@@ -202,33 +327,15 @@
     return imageResized;
 }
 
-- (NSNumber *)getPriceForBarcode:(NSString *)barcode
+- (void)showSimpleAlertWithTitle:(NSString *)tt message:(NSString *)msg
 {
-	int price = -1;
-	
-	NSLog(@"Get price from server");
-	
-	id<ICECommunicator> communicator = nil;
-	@try {
-		communicator = [ICEUtil createCommunicator];
-#warning Change IP depending on your test
-		id<ICEObjectPrx> base = [communicator stringToProxy:@"BarcodeRemoteDB:tcp -h XXX.XXX.XXX.XXX -p 10000"];
-		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
-		
-		price = [barcodeDB priceForBarcode:barcode];
-	}
-	@catch (NSException * ex) {
-		NSLog(@"%@", ex);
-	}
-	
-	@try {
-		[communicator destroy];
-	}
-	@catch (NSException * ex) {
-		NSLog(@"%@", ex);
-	}
-	
-	return [NSNumber numberWithInt:price];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:tt
+														message:msg
+													   delegate:nil
+											  cancelButtonTitle:@"Cancel"
+											  otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];
 }
 
 

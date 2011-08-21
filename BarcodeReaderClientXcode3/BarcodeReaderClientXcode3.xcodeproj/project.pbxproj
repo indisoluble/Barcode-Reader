@@ -30,12 +30,15 @@
 		FF0B86AD13B4DF9A007BC960 /* ListCapturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0B86AC13B4DF9A007BC960 /* ListCapturesViewController.m */; };
 		FF0B86E913B4E234007BC960 /* 86-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0B86E813B4E234007BC960 /* 86-camera.png */; };
 		FF0B86EB13B4E23E007BC960 /* 195-barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0B86EA13B4E23E007BC960 /* 195-barcode.png */; };
+		FF0C0E56140156930003641E /* BarcodeReaderClientXcode3-Properties.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF0C0E55140156930003641E /* BarcodeReaderClientXcode3-Properties.plist */; };
 		FF1503CA13B7AA02009631CF /* CaptureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1503C913B7AA02009631CF /* CaptureModel.m */; };
 		FF5650AE13B4E9F300DD5794 /* AmebaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = FF5650AD13B4E9F300DD5794 /* AmebaLogo.png */; };
 		FF66575613B52FFD00BE95AC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF66575513B52FFD00BE95AC /* CFNetwork.framework */; };
 		FF66576813B5301500BE95AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF66576713B5301500BE95AC /* Security.framework */; };
 		FF66576C13B5302300BE95AC /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF66576B13B5302300BE95AC /* ExternalAccessory.framework */; };
 		FF9A667B13B7A41400B3D4A9 /* Barcode.ice in Sources */ = {isa = PBXBuildFile; fileRef = FF9A667A13B7A41400B3D4A9 /* Barcode.ice */; };
+		FFA8407B13F081AC003ED823 /* DefineBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA8407913F081AC003ED823 /* DefineBarcodeViewController.m */; };
+		FFA8407C13F081AC003ED823 /* DefineBarcodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA8407A13F081AC003ED823 /* DefineBarcodeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +90,7 @@
 		FF0B86AC13B4DF9A007BC960 /* ListCapturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListCapturesViewController.m; path = ../ListCapturesViewController.m; sourceTree = "<group>"; };
 		FF0B86E813B4E234007BC960 /* 86-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "86-camera.png"; sourceTree = "<group>"; };
 		FF0B86EA13B4E23E007BC960 /* 195-barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "195-barcode.png"; sourceTree = "<group>"; };
+		FF0C0E55140156930003641E /* BarcodeReaderClientXcode3-Properties.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BarcodeReaderClientXcode3-Properties.plist"; sourceTree = "<group>"; };
 		FF1503C813B7AA02009631CF /* CaptureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureModel.h; path = ../CaptureModel.h; sourceTree = "<group>"; };
 		FF1503C913B7AA02009631CF /* CaptureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureModel.m; path = ../CaptureModel.m; sourceTree = "<group>"; };
 		FF5650AD13B4E9F300DD5794 /* AmebaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AmebaLogo.png; sourceTree = "<group>"; };
@@ -94,6 +98,9 @@
 		FF66576713B5301500BE95AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FF66576B13B5302300BE95AC /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		FF9A667A13B7A41400B3D4A9 /* Barcode.ice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.slice; name = Barcode.ice; path = ../Slices/Barcode.ice; sourceTree = SOURCE_ROOT; };
+		FFA8407813F081AC003ED823 /* DefineBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineBarcodeViewController.h; sourceTree = "<group>"; };
+		FFA8407913F081AC003ED823 /* DefineBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefineBarcodeViewController.m; sourceTree = "<group>"; };
+		FFA8407A13F081AC003ED823 /* DefineBarcodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefineBarcodeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +137,9 @@
 				FF0B850313B4BE7B007BC960 /* CaptureBarcodeViewController.xib */,
 				FF1503C813B7AA02009631CF /* CaptureModel.h */,
 				FF1503C913B7AA02009631CF /* CaptureModel.m */,
+				FFA8407813F081AC003ED823 /* DefineBarcodeViewController.h */,
+				FFA8407913F081AC003ED823 /* DefineBarcodeViewController.m */,
+				FFA8407A13F081AC003ED823 /* DefineBarcodeViewController.xib */,
 				FF0B86AB13B4DF9A007BC960 /* ListCapturesViewController.h */,
 				FF0B86AC13B4DF9A007BC960 /* ListCapturesViewController.m */,
 			);
@@ -173,6 +183,7 @@
 				FF0B86E313B4E20C007BC960 /* Icons */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* BarcodeReaderClientXcode3-Info.plist */,
+				FF0C0E55140156930003641E /* BarcodeReaderClientXcode3-Properties.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -344,6 +355,8 @@
 				FF0B86E913B4E234007BC960 /* 86-camera.png in Resources */,
 				FF0B86EB13B4E23E007BC960 /* 195-barcode.png in Resources */,
 				FF5650AE13B4E9F300DD5794 /* AmebaLogo.png in Resources */,
+				FFA8407C13F081AC003ED823 /* DefineBarcodeViewController.xib in Resources */,
+				FF0C0E56140156930003641E /* BarcodeReaderClientXcode3-Properties.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +374,7 @@
 				FF0B86AD13B4DF9A007BC960 /* ListCapturesViewController.m in Sources */,
 				FF9A667B13B7A41400B3D4A9 /* Barcode.ice in Sources */,
 				FF1503CA13B7AA02009631CF /* CaptureModel.m in Sources */,
+				FFA8407B13F081AC003ED823 /* DefineBarcodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

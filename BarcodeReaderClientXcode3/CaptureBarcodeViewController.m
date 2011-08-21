@@ -23,9 +23,6 @@ typedef enum {
 
 
 #define CAPTUREBARCODE_IMAGESIZE 100
-#warning Change IP depending on your test
-#define CAPTUREBARCODE_IP "XXX.XXX.XXX.XXX"
-#define CAPTUREBARCODE_PORT 10000
 
 
 
@@ -44,7 +41,8 @@ typedef enum {
 - (ResultGetPriceType)getPriceRemotelyForBarcode:(NSString *)barcode price:(NSNumber **)price;
 
 - (BOOL)createLocallyBarcode:(NSString *)barcode image:(UIImage *)image price:(NSNumber *)price;
-- (BOOL)createRemotelyBarcode:(NSString *)barcode image:(UIImage *)image getPrice:(NSNumber **)price;
+
+- (void)askForDataToCreateBarcodeRemotely;
 
 - (UIImage *)resize:(UIImage *)image;
 - (void)showSimpleAlertWithTitle:(NSString *)tt message:(NSString *)msg;
@@ -96,14 +94,6 @@ typedef enum {
     // Release any cached data, images, etc. that aren't in use.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
 - (void)dealloc {
     self.resultImage = nil;
     self.resultText = nil;
@@ -114,13 +104,19 @@ typedef enum {
 }
 
 
-
 #pragma mark -
 #pragma mark View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -134,6 +130,8 @@ typedef enum {
 #pragma mark UIImagePickerControllerDelegate methods
 - (void)imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
 {
+	NSLog(@"End scanning");
+	
     // Get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
@@ -145,19 +143,34 @@ typedef enum {
     // Show the barcode data and image
     self.resultText.text = symbol.data;
     self.resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-    
+	
+	// Dismiss the controller
+    [reader dismissModalViewControllerAnimated: YES];
+	
     // Save data
 	[self saveBarcode:self.resultText.text image:self.resultImage.image];
-	
-    // Dismiss the controller (NB dismiss from the *reader*!)
-    [reader dismissModalViewControllerAnimated: YES];
-    
-    NSLog(@"End scanning");
 }
 
 
 #pragma mark -
-#pragma mark Private methods
+#pragma mark DefineBarcodeDelegate methods
+- (void)useBarcodeWithDescription:(NSString *)desc price:(NSNumber *)price
+{
+	// Save barcoce locally
+	[self createLocallyBarcode:self.resultText.text image:self.resultImage.image price:price];
+
+	// Dismiss actual view
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)discardBarcode
+{
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
+#pragma mark Public methods
 - (IBAction)scanButtonTapped
 {
     NSLog(@"Start scanning ...");
@@ -173,20 +186,24 @@ typedef enum {
     [self presentModalViewController:reader animated:YES];
 }
 
+
+#pragma mark -
+#pragma mark Private methods
 - (void)saveBarcode:(NSString *)barcode image:(UIImage *)image
 {
 	NSNumber *price = nil;
 	
-	NSLog(@"Save capture to database");
+	NSLog(@"Save capture to database (if possible)");
 	
 	switch ([self getPriceRemotelyForBarcode:barcode price:&price]) {
-		case CaptureBarcodePriceNotFound:
-			if (![self createRemotelyBarcode:barcode image:image getPrice:&price]) {
-				break;
-			}
-			
 		case CaptureBarcodePriceFound:
+			NSLog(@"Price found for barcode <%@>. Save right now", barcode);
 			[self createLocallyBarcode:barcode image:image price:price];
+			
+			break;			
+		case CaptureBarcodePriceNotFound:
+			NSLog(@"Price not found for barcode <%@>. Create remotelly?", barcode);
+			[self askForDataToCreateBarcodeRemotely];
 			
 			break;
 		default:
@@ -197,16 +214,35 @@ typedef enum {
 
 - (ResultGetPriceType)getPriceRemotelyForBarcode:(NSString *)barcode price:(NSNumber **)price;
 {
+	NSString *pListPath;
+	NSData *pListData;
+	NSDictionary *pListDictionary;
+	
+	NSString *serverIp;
+	NSNumber *serverPort;	
+	
 	int priceInt = -1;
 	ResultGetPriceType result = CaptureBarcodePriceNotFound;
 	
 	NSLog(@"Get price from server");
 	
+	// Get connection data
+	pListPath =  [[NSBundle mainBundle] pathForResource:@"BarcodeReaderClientXcode3-Properties" ofType:@"plist"];
+	pListData = [[[NSData alloc] initWithContentsOfFile:pListPath] autorelease];
+	pListDictionary = (NSDictionary *) [NSPropertyListSerialization propertyListWithData:pListData
+																				 options:0
+																				  format:nil
+																				   error:nil];
+	
+	serverIp = [pListDictionary objectForKey:@"ServerIp"];
+	serverPort = [pListDictionary objectForKey:@"ServerPort"];;
+	
+	// Dowload data
 	id<ICECommunicator> communicator = nil;
 	@try {
 		communicator = [ICEUtil createCommunicator];
 		id<ICEObjectPrx> base = [communicator stringToProxy:
-								 [NSString stringWithFormat:@"BarcodeRemoteDB:tcp -h %s -p %d",CAPTUREBARCODE_IP, CAPTUREBARCODE_PORT]];
+								 [NSString stringWithFormat:@"BarcodeRemoteDB:tcp -h %@ -p %@",serverIp, serverPort]];
 		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
 		
 		priceInt = [barcodeDB priceForBarcode:barcode];
@@ -221,6 +257,7 @@ typedef enum {
 		[self showSimpleAlertWithTitle:@"Getting price for barcode" message:[ex reason]];
 	}
 	
+	// Finish connection
 	@try {
 		[communicator destroy];
 	}
@@ -257,52 +294,28 @@ typedef enum {
 		
 	}
 	
+	if (result) {
+		NSLog(@"Barcode <%@> with price <%@> saved", barcode, price);
+	}
+	
 	return result;
 }
 
-- (BOOL)createRemotelyBarcode:(NSString *)barcode image:(UIImage *)image getPrice:(NSNumber **)price
+- (void)askForDataToCreateBarcodeRemotely
 {
-	NSString *descAux = nil;
-	int priceAux = -1;
-	NSData *imageAux = nil;
+	NSLog(@"Show view to ask");
 	
-	BOOL result = YES;
+	DefineBarcodeViewController *defineBarcodeViewController =
+	[[[DefineBarcodeViewController alloc] initWithNibName:@"DefineBarcodeViewController"
+												   bundle:nil
+												  barcode:self.resultText.text
+													image:[self resize:self.resultImage.image]] autorelease];
 	
-	NSLog(@"Creating barcode in server");
-	
-	id<ICECommunicator> communicator = nil;
-	@try {
-		communicator = [ICEUtil createCommunicator];
-		id<ICEObjectPrx> base = [communicator stringToProxy:
-								 [NSString stringWithFormat:@"BarcodeRemoteDB:tcp -h %s -p %d",CAPTUREBARCODE_IP, CAPTUREBARCODE_PORT]];
-		id<DemoBarcodePrx> barcodeDB = [DemoBarcodePrx checkedCast:base];
-		
-		descAux = @"Test iOS";
-		priceAux = 7777;
-		imageAux = UIImagePNGRepresentation([self resize:image]);
-		
-		result = ([barcodeDB saveProduct:barcode desc:descAux price:priceAux image:imageAux] < 0 ? NO : YES);
-	}
-	@catch (NSException * ex) {
-		result = NO;
-		NSLog(@"%@", ex);
-		[self showSimpleAlertWithTitle:@"Creating barcode in server" message:[ex reason]];
-	}
-	
-	@try {
-		[communicator destroy];
-	}
-	@catch (NSException * ex) {
-		result = NO;
-		NSLog(@"%@", ex);
-		[self showSimpleAlertWithTitle:@"Destroying conection" message:[ex reason]];
-	}
-	
-	if (result) {
-		*price = [NSNumber numberWithInt:priceAux];;
-	}
-	
-	return result;	
+	// #warning Incorrect, two modal view in a row it's not a good idea
+	// [self presentModalViewController:defineBarcodeViewController animated:YES];
+
+	defineBarcodeViewController.delegate = self;
+	[self.navigationController pushViewController:defineBarcodeViewController animated:YES];
 }
 
 - (UIImage *)resize:(UIImage *)image

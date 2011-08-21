@@ -11,9 +11,11 @@
 
 #import "ZBarSDK.h"
 
+#import "DefineBarcodeViewController.h"
 
 
-@interface CaptureBarcodeViewController : UIViewController <ZBarReaderDelegate> {
+
+@interface CaptureBarcodeViewController : UIViewController <ZBarReaderDelegate, DefineBarcodeDelegate> {
     
     NSManagedObjectContext *__managedObjectContext;
     
